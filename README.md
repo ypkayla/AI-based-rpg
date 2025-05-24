@@ -231,16 +231,6 @@ An immersive fantasy RPG that uses your locally installed Ollama to create infin
 - **Loot Tables**: Different enemies drop different rewards
 - **Behavioral AI**: Monsters act according to their nature
 
-## 📁 File Structure
-
-```
-fantasy-rpg/
-├── index.html          # Main game interface
-├── style.css           # Game styling and animations
-├── script.js           # Core game logic and AI integration
-└── README.md           # This documentation
-```
-
 ## 🔮 Future Enhancements
 
 ### Planned Features
@@ -278,13 +268,8 @@ This project is open source and available under the MIT License. Feel free to us
 ## 🎉 Credits
 
 - **AI Technology**: Powered by Ollama and various language models
-- **Game Design**: Inspired by classic fantasy RPGs and modern AI capabilities
-- **Community**: Thanks to all players and contributors
+- **Game Design**: Inspired by classic fantasy RPGs
+- **Community**: Thanks to all players
 
 ---
 
-**Ready for Adventure?** 🗡️✨
-
-Launch the game and begin your epic fantasy journey! Create your character, explore mysterious lands, build relationships, fight monsters, and write your own legend in this AI-powered world.
-
-*May your adventures be legendary!* 🏰🐉👑
