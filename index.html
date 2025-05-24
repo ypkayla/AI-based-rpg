@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy RPG - AI World</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Character Creation -->
+        <div id="character-creation" class="screen">
+            <div class="creation-panel">
+                <h1>🧙‍♂️ Create Your Character</h1>
+                <div class="character-form">
+                    <div class="form-group">
+                        <label for="char-name">Character Name:</label>
+                        <input type="text" id="char-name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="char-class">Class:</label>
+                        <select id="char-class">
+                            <option value="warrior">⚔️ Warrior - High HP, Strong attacks</option>
+                            <option value="mage">🔮 Mage - High Mana, Powerful spells</option>
+                            <option value="rogue">🗡️ Rogue - High Speed, Critical hits</option>
+                            <option value="paladin">🛡️ Paladin - Balanced, Holy magic</option>
+                            <option value="necromancer">💀 Necromancer - Dark magic, Summons</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="char-gender">Gender:</label>
+                        <select id="char-gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <button id="start-game" class="btn btn-primary">Start Adventure</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Game Interface -->
+        <div id="game-interface" class="screen hidden">
+            <!-- Top HUD -->
+            <div class="hud">
+                <div class="character-info">
+                    <div class="char-portrait">
+                        <div id="char-avatar">🧙‍♂️</div>
+                        <div class="char-details">
+                            <div id="char-name-display">Hero</div>
+                            <div id="char-level">Level 1</div>
+                        </div>
+                    </div>
+                    <div class="stats-bars">
+                        <div class="stat-bar">
+                            <label>HP:</label>
+                            <div class="bar hp-bar">
+                                <div id="hp-fill" class="bar-fill"></div>
+                                <span id="hp-text">100/100</span>
+                            </div>
+                        </div>
+                        <div class="stat-bar">
+                            <label>MP:</label>
+                            <div class="bar mp-bar">
+                                <div id="mp-fill" class="bar-fill"></div>
+                                <span id="mp-text">50/50</span>
+                            </div>
+                        </div>
+                        <div class="stat-bar">
+                            <label>XP:</label>
+                            <div class="bar xp-bar">
+                                <div id="xp-fill" class="bar-fill"></div>
+                                <span id="xp-text">0/100</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quick-stats">
+                        <div>💰 <span id="gold">100</span></div>
+                        <div>📍 <span id="location">Starting Village</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <!-- Left Panel - World View -->
+                <div class="left-panel">
+                    <div class="world-view">
+                        <div class="location-header">
+                            <h2 id="current-location">Starting Village</h2>
+                            <div class="weather">☀️ Sunny</div>
+                        </div>
+                        <div id="location-image" class="location-image">
+                            <div class="placeholder-image">🏘️</div>
+                        </div>
+                        <div id="location-description" class="location-description">
+                            A peaceful village where your adventure begins...
+                        </div>
+                        <div class="npcs-present">
+                            <h3>Characters Here:</h3>
+                            <div id="npc-list" class="npc-list">
+                                <!-- NPCs will be populated here -->
+                            </div>
+                        </div>
+                        <div class="monsters-present">
+                            <h3>Threats Nearby:</h3>
+                            <div id="monster-list" class="monster-list">
+                                <!-- Monsters will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Panel - Chat/Actions -->
+                <div class="center-panel">
+                    <div class="chat-container">
+                        <div id="game-log" class="game-log">
+                            <!-- Game messages will appear here -->
+                        </div>
+                        <div class="input-area">
+                            <input type="text" id="action-input" placeholder="What do you want to do?" maxlength="200">
+                            <button id="send-action" class="btn">Send</button>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-btn" data-action="look around">👀 Look</button>
+                            <button class="quick-btn" data-action="explore">🚶 Explore</button>
+                            <button class="quick-btn" data-action="rest">😴 Rest</button>
+                            <button class="quick-btn" data-action="check inventory">🎒 Inventory</button>
+                            <button class="quick-btn" data-action="cast spell">✨ Magic</button>
+                            <button class="quick-btn" data-action="talk to villagers">💬 Talk</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Character & Inventory -->
+                <div class="right-panel">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="inventory">🎒 Inventory</button>
+                        <button class="tab-btn" data-tab="spells">📜 Spells</button>
+                        <button class="tab-btn" data-tab="companions">👥 Companions</button>
+                        <button class="tab-btn" data-tab="map">🗺️ Map</button>
+                    </div>
+
+                    <div id="inventory-tab" class="tab-content active">
+                        <div class="inventory-grid" id="inventory-grid">
+                            <!-- Inventory items will be populated here -->
+                        </div>
+                        <div class="equipment-slots">
+                            <h3>Equipment</h3>
+                            <div class="equipment-grid">
+                                <div class="equip-slot" data-slot="weapon">⚔️ Weapon</div>
+                                <div class="equip-slot" data-slot="armor">🛡️ Armor</div>
+                                <div class="equip-slot" data-slot="accessory">💍 Accessory</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="spells-tab" class="tab-content">
+                        <div id="spell-list" class="spell-list">
+                            <!-- Spells will be populated here -->
+                        </div>
+                    </div>
+
+                    <div id="companions-tab" class="tab-content">
+                        <div id="companion-list" class="companion-list">
+                            <!-- Companions will be populated here -->
+                        </div>
+                    </div>
+
+                    <div id="map-tab" class="tab-content">
+                        <div id="world-map" class="world-map">
+                            <!-- Map will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Combat Interface -->
+        <div id="combat-interface" class="screen hidden">
+            <div class="combat-area">
+                <div class="enemy-section">
+                    <div id="enemy-info" class="enemy-info">
+                        <div id="enemy-name">Enemy</div>
+                        <div id="enemy-image">👹</div>
+                        <div class="enemy-stats">
+                            <div class="stat-bar">
+                                <label>HP:</label>
+                                <div class="bar enemy-hp-bar">
+                                    <div id="enemy-hp-fill" class="bar-fill"></div>
+                                    <span id="enemy-hp-text">100/100</span>
+                                </div>
+                            </div>
+                            <div id="enemy-level">Level 1</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="combat-actions">
+                    <button class="combat-btn" id="attack-btn">⚔️ Attack</button>
+                    <button class="combat-btn" id="magic-btn">✨ Magic</button>
+                    <button class="combat-btn" id="defend-btn">🛡️ Defend</button>
+                    <button class="combat-btn" id="flee-btn">🏃 Flee</button>
+                </div>
+                <div id="combat-log" class="combat-log">
+                    <!-- Combat messages -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div id="settings-panel" class="modal hidden">
+            <div class="modal-content">
+                <h2>⚙️ Settings</h2>
+                <div class="form-group">
+                    <label for="ollama-url">Ollama URL:</label>
+                    <input type="text" id="ollama-url" value="http://localhost:11434">
+                </div>
+                <div class="form-group">
+                    <label for="ai-model">AI Model:</label>
+                    <select id="ai-model">
+                        <option value="llama2">Llama 2</option>
+                        <option value="mistral">Mistral</option>
+                        <option value="neural-chat">Neural Chat</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="creativity">AI Creativity:</label>
+                    <input type="range" id="creativity" min="0.1" max="1.0" step="0.1" value="0.8">
+                    <span id="creativity-value">0.8</span>
+                </div>
+                <div class="form-group">
+                    <label for="auto-save">Auto-save:</label>
+                    <input type="checkbox" id="auto-save" checked>
+                </div>
+                <div class="modal-actions">
+                    <button id="save-settings" class="btn">Save</button>
+                    <button id="close-settings" class="btn btn-secondary">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left">
+                <span id="connection-status">🔴 Disconnected</span>
+                <span id="game-time">Day 1, Morning</span>
+            </div>
+            <div class="status-right">
+                <button id="save-game" class="btn btn-small">💾 Save</button>
+                <button id="load-game" class="btn btn-small">📁 Load</button>
+                <button id="open-settings" class="btn btn-small">⚙️ Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
